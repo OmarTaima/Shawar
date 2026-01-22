@@ -180,12 +180,15 @@ export default function ProductPage() {
     ? offers[selectedOffer].price + Math.max(0, selectedItemsCount - offers[selectedOffer].count) * perUnitPrice
     : selectedItemsCount * perUnitPrice;
 
-  // Shipping fee (default 0). Promo code 'Shower-delivery' keeps shipping 0.
-  const shippingFee = 0;
+  // Promo code from form
+  const promoCode = (formData && formData.promoCode) ? String(formData.promoCode).trim() : "";
+
+  // Shipping promo: entering 'Shower-delivery' (case-insensitive) grants free delivery
+  const isDeliveryPromo = promoCode.toLowerCase() === 'shower-delivery';
+  const shippingFee = isDeliveryPromo ? 0 : 40;
 
   // Promo discount: shower-offer gives 90 EGP off for subtotal >= 270
-  const promoCode = (formData && formData.promoCode) ? String(formData.promoCode).trim() : "";
-  // Promo codes are disabled when the 5-item bundle is selected
+  // Promo discounts are disabled when the 5-item bundle is selected
   const promoDiscount = selectedOffer === 1
     ? 0
     : (promoCode.toLowerCase() === 'shower-offer' && subtotal >= 270 ? 90 : 0);
