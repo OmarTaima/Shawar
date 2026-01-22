@@ -639,7 +639,7 @@ export default function ProductPage() {
           {/* Offer Cards - Desktop Only */}
           <div className="mt-2 w-full">
             <label className="text-sm font-semibold text-neutral-700">العروض:</label>
-            <div className="mt-2 w-full grid grid-cols-3 gap-3 py-2">
+            <div className="mt-2 w-full flex flex-col gap-3 py-2">
               {offers.map((o, idx) => {
                 const active = selectedOffer === idx;
                 return (
@@ -654,16 +654,18 @@ export default function ProductPage() {
                     }}
                     aria-pressed={active}
                     className={
-                      "flex flex-col items-center w-full px-3 py-3 rounded-xl text-sm text-center transition-all duration-300 transform hover:scale-105 " +
+                      "flex items-center justify-between w-full px-5 py-4 rounded-2xl text-sm transition-all duration-300 transform hover:scale-105 " +
                       (active
                         ? "bg-gradient-to-br from-[#2f83aa] to-[#1a5f7a] text-white shadow-lg ring-2 ring-[#7fc0d6] ring-offset-2"
-                        : "bg-white text-neutral-700 border-2 border-cyan-100 hover:border-[#2f83aa] hover:bg-cyan-50 shadow-md")
+                        : "bg-white text-neutral-700 border border-cyan-100 hover:border-[#2f83aa] hover:bg-cyan-50 shadow-md")
                     }
                   >
-                    <span className="font-bold text-base">{o.count === 5 ? '🎉 باقة 5' : '🖼️ منتج'}</span>
-                    <span className={"text-xs " + (active ? "text-cyan-100" : "text-neutral-500")}> 
-                      {o.count} {o.count === 5 ? 'منتجات —' : 'x'} {o.count === 5 ? `${o.price} جنيه` : `${o.price} جنيه لكل منتج`}
-                    </span>
+                    <div className="text-right">
+                      <div className="font-bold text-base">{o.count === 5 ? ' باقة 5' : ' منتج'}</div>
+                      <div className={"text-sm " + (active ? "text-cyan-100" : "text-neutral-500")}>
+                        {o.count === 5 ? `${o.count} منتجات — ${o.price} جنيه` : `${o.price} جنيه لكل منتج`}
+                      </div>
+                    </div>
                   </button>
                 );
               })}
@@ -1054,17 +1056,15 @@ export default function ProductPage() {
             {/* Brand Section */}
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                
                 <div>
                   <h3 className="text-2xl font-bold">
-                    Shawar Cornflakes
+                    Shawar Cornfelkes
                   </h3>
-                  <p className="text-xs text-cyan-300">كورن فليكس</p>
+                  <p className="text-xs text-cyan-300">كورنفلكس</p>
                 </div>
               </div>
               <p className="text-sm text-neutral-300 leading-relaxed">
-                نظمي تلاجتك بسهولة وخلي كل حاجة في مكانها. 
-                منتجات بلاستيكية عالية الجودة وآمنة على الطعام.
+                طعم صباحات مليانة طاقة — كورنفلكس من شاور، حبوب مقرمشة بنكهات طبيعية ومغذية.
               </p>
             </div>
 
