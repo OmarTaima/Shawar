@@ -15,11 +15,12 @@ import {
   Headphones,
   Award,
 } from "lucide-react";
-import logoImg from "./assets/logo.png";
+import logoImg from "./assets/logo.jpeg";
 import photo1 from "./assets/556882990_1219622656851052_8768942022743195469_n.jpg";
 import photo2 from "./assets/558440708_1219622400184411_6437028368072389860_n.jpg";
 import photo3 from "./assets/558989342_1219622760184375_8826584400446898894_n.jpg";
 import photo4 from "./assets/559127112_1219622513517733_3897607277409627272_n.jpg";
+import photo5 from "./assets/559167641_1219622440184407_212126080277563908_n.jpg";
 import ProductCard from "./ProductCard";
 import { addOrder } from "./api";
 import Swal from "sweetalert2";
@@ -36,6 +37,11 @@ export default function ProductPage() {
   const DEFAULT_COMPANY_ID = import.meta.env.VITE_CRM_COMPANY_ID ;
   const DEFAULT_SUBCATS = [import.meta.env.VITE_CRM_CATEGORY_ID ];
   const DEFAULT_BRANCH_ID = import.meta.env.VITE_CRM_BRANCH_ID ;
+
+  // Resolved defaults with safe fallbacks for local/dev when env vars are not provided
+  const RES_COMPANY_ID = DEFAULT_COMPANY_ID || "697253732fd976608d1de0e6";
+  const RES_SUBCATS = (DEFAULT_SUBCATS && DEFAULT_SUBCATS[0]) ? DEFAULT_SUBCATS : ["697253bd2fd976608d1de42f"];
+  const RES_BRANCH_ID = DEFAULT_BRANCH_ID || "697254282fd976608d1de6de";
 
   // Product details
   const productDetails = {
@@ -62,6 +68,7 @@ export default function ProductPage() {
     { type: "image", src: photo2 },
     { type: "image", src: photo3 },
     { type: "image", src: photo4 },
+    { type: "image", src: photo5 },
   ];
 
   // --------------------------------------------------------------------------
@@ -145,12 +152,25 @@ export default function ProductPage() {
   const [selectedOffer, setSelectedOffer] = useState(0);
 
   // example flavors based on the available images
+  // Read item ids from env variables (support multiple possible names and fallbacks)
+  const ITEM1 = import.meta.env.VITE_CRM_ITEM1_ID || import.meta.env.VITE_PRODUCT_ITEM1_ID || import.meta.env.VITE_ITEM1_ID || import.meta.env.VITE_CRM_ITEM_ID || import.meta.env.VITE_PRODUCT_ITEM_ID || import.meta.env.VITE_ITEM_ID || "";
+  const ITEM2 = import.meta.env.VITE_CRM_ITEM2_ID || import.meta.env.VITE_PRODUCT_ITEM2_ID || import.meta.env.VITE_ITEM2_ID || "";
+  const ITEM3 = import.meta.env.VITE_CRM_ITEM3_ID || import.meta.env.VITE_PRODUCT_ITEM3_ID || import.meta.env.VITE_ITEM3_ID || "";
+  const ITEM4 = import.meta.env.VITE_CRM_ITEM4_ID || import.meta.env.VITE_PRODUCT_ITEM4_ID || import.meta.env.VITE_ITEM4_ID || "";
+  const ITEM5 = import.meta.env.VITE_CRM_ITEM5_ID || import.meta.env.VITE_PRODUCT_ITEM5_ID || import.meta.env.VITE_ITEM5_ID || "";
+  // Fallback IDs (used only if env vars are missing at runtime). Replace with correct IDs if needed.
+  const RES_ITEM1 = ITEM1 || "697254ef2fd976608d1deb69";
+  const RES_ITEM2 = ITEM2 || "6972550d2fd976608d1deb87";
+  const RES_ITEM3 = ITEM3 || "6972552d2fd976608d1deba5";
+  const RES_ITEM4 = ITEM4 || "697255b32fd976608d1debc4";
+  const RES_ITEM5 = ITEM5 || "697255cb2fd976608d1debe2";
+
   const flavors = [
-    { id: 'flav1', name: 'نكهة ١', price: perUnitPrice, image: photo1 },
-    { id: 'flav2', name: 'نكهة ٢', price: perUnitPrice, image: photo2 },
-    { id: 'flav3', name: 'نكهة ٣', price: perUnitPrice, image: photo3 },
-    { id: 'flav4', name: 'نكهة ٤', price: perUnitPrice, image: photo4 },
-    { id: 'flav5', name: 'نكهة ٥', price: perUnitPrice, image: photo1 },
+    { id: 'flav1', name: 'نكهة ١', price: perUnitPrice, image: photo1, itemId: RES_ITEM1 },
+    { id: 'flav2', name: 'نكهة ٢', price: perUnitPrice, image: photo2, itemId: RES_ITEM2 },
+    { id: 'flav3', name: 'نكهة ٣', price: perUnitPrice, image: photo3, itemId: RES_ITEM3 },
+    { id: 'flav4', name: 'نكهة ٤', price: perUnitPrice, image: photo4, itemId: RES_ITEM4 },
+    { id: 'flav5', name: 'نكهة ٥', price: perUnitPrice, image: photo5, itemId: RES_ITEM5 },
   ];
 
   // Compute subtotal depending on selected offer or selected items (from ProductCard selections)
@@ -366,9 +386,7 @@ export default function ProductPage() {
         cityId = citiesByName.get(province.toLowerCase()) || null;
       }
 
-      // Product item ids can be provided via env for production.
-      // Support multiple env names and per-offer item ids (item2, item3).
-      const ITEM1 = import.meta.env.VITE_CRM_ITEM_ID || import.meta.env.VITE_PRODUCT_ITEM_ID || import.meta.env.VITE_ITEM_ID || "";
+      // Product item ids are read from top-level env constants (ITEM1..ITEM5)
       // Build otherPhones array: include whatsapp number only when `isWhatsapp` is true
       const otherPhonesArr = (formData.isWhatsapp && formData.whatsappNumber && String(formData.whatsappNumber).trim())
         ? [String(formData.whatsappNumber).trim()]
@@ -378,21 +396,75 @@ export default function ProductPage() {
       // For bundle offer, the order quantity is the total selected items (bundle + extras)
       const orderedQuantity = selectedItemsCount > 0 ? selectedItemsCount : ((offers[selectedOffer] && offers[selectedOffer].count) || quantity);
 
-        // Use single item id for all offers (ITEM1). ITEM2/ITEM3 removed per requirements.
-        const selectedItemId = ITEM1;
+        // Build items list from selected flavor selections mapping to env item ids
+        // When user selected specific flavors, map each flavor id to its configured item id.
+        const flavorIdToItemId = {
+          flav1: RES_ITEM1,
+          flav2: RES_ITEM2,
+          flav3: RES_ITEM3,
+          flav4: RES_ITEM4,
+          flav5: RES_ITEM5,
+        };
 
-      // Defensive check: ensure we have a selected item id before sending the order
-      if (!selectedItemId) {
-        Swal.fire({
-          icon: "error",
-          title: "خطأ",
-          text: "معرف المنتج مفقود. حاول مرة أخرى لاحقاً.",
-          confirmButtonColor: "#2f83aa",
-        });
-        setIsSubmitting(false);
-        return;
-      }
+        const itemsPayload = [];
+        const selectedEntries = Object.entries(selectedItems || {});
+        if (selectedEntries.length > 0) {
+          selectedEntries.forEach(([fid, qty]) => {
+            const itemIdForFlavor = flavorIdToItemId[fid] || ITEM1 || "";
+            if (itemIdForFlavor) {
+              itemsPayload.push({ item: itemIdForFlavor, quantity: String(qty || 1) });
+            }
+          });
+        }
 
+        // If no individual flavors selected, fall back to single item (bundle or quantity)
+        if (itemsPayload.length === 0) {
+          if (selectedOffer === 1) {
+            // Bundle selected: send the 5 configured item ids as one each
+            const bundleIds = [ITEM1, ITEM2, ITEM3, ITEM4, ITEM5];
+            // Debug: print resolved env item ids (check browser console)
+            try { console.debug('Resolved ITEM ids:', { ITEM1, ITEM2, ITEM3, ITEM4, ITEM5 }); } catch (e) {}
+            // Ensure at least one valid item id exists
+            const hasAny = bundleIds.some((id) => !!id);
+            if (!hasAny) {
+              const missing = ['VITE_CRM_ITEM1_ID','VITE_CRM_ITEM2_ID','VITE_CRM_ITEM3_ID','VITE_CRM_ITEM4_ID','VITE_CRM_ITEM5_ID'];
+              console.debug('Missing bundle item ids. Resolved values:', bundleIds);
+              Swal.fire({ icon: "error", title: "خطأ", html: `معرفات المنتج غير متوفرة.<br/>توقع المتغيرات: ${missing.join(', ')}<br/><br/>القيم الحالية: ${bundleIds.map(v=>v||'<empty>').join(', ')}`, confirmButtonColor: "#2f83aa" });
+              setIsSubmitting(false);
+              return;
+            }
+            bundleIds.forEach((id) => {
+              const itemId = id || ITEM1 || "";
+              if (itemId) itemsPayload.push({ item: itemId, quantity: "1" });
+            });
+
+            // If user ordered more than 5 (extras), add the extra quantity to the first item
+            if (orderedQuantity > 5) {
+              const extraQty = orderedQuantity - 5;
+              const extraTarget = ITEM1 || ITEM2 || ITEM3 || ITEM4 || ITEM5 || "";
+              if (extraTarget) {
+                const found = itemsPayload.find((it) => it.item === extraTarget);
+                if (found) {
+                  found.quantity = String(Number(found.quantity || 0) + extraQty);
+                } else {
+                  itemsPayload.push({ item: extraTarget, quantity: String(extraQty) });
+                }
+              }
+            }
+          } else {
+            const fallbackItem = ITEM1 || "";
+            if (!fallbackItem) {
+              Swal.fire({ icon: "error", title: "خطأ", text: "معرف المنتج مفقود. حاول مرة أخرى لاحقاً.", confirmButtonColor: "#2f83aa" });
+              setIsSubmitting(false);
+              return;
+            }
+            itemsPayload.push({ item: fallbackItem, quantity: String(orderedQuantity) });
+          }
+        }
+
+      // Determine backend discount: bundle selection gets fixed 150 discount,
+      // otherwise use promoDiscount computed locally (promo disabled for bundle)
+      const backendDiscount = (selectedOffer === 1) ? 150 : (promoDiscount || 0);
 
       const orderData = {
         name,
@@ -404,23 +476,17 @@ export default function ProductPage() {
           landmark: "",
         }],
         city: cityId || "",
-        company: DEFAULT_COMPANY_ID,
-        subCategories: DEFAULT_SUBCATS,
+        company: RES_COMPANY_ID,
+        subCategories: RES_SUBCATS,
         isWhatsapp: !!formData.isWhatsapp,
-        items: [
-          {
-            item: selectedItemId,
-            quantity: String(orderedQuantity),
-          },
-        ],
+        items: itemsPayload,
         shippingFee: String(shippingFee),
-        // Apply promo-based discount (handled client-side for preview and sent to backend)
-        totalDiscount: String(promoDiscount || 0),
-        promoCode: promoCode || "",
+        // Send discount to backend: bundle gets 150, otherwise promo discount
+        totalDiscount: String(backendDiscount || 0),
         orderOnly: {
           userNote: String((formData.note && String(formData.note).trim()) || `${productDetails.name} - الكمية ${orderedQuantity} - المجموع ${subtotal} جنيه`),
         },
-        branch: DEFAULT_BRANCH_ID || "",
+        branch: RES_BRANCH_ID || "",
       };
 
       // Debug: log outgoing order payload to help diagnose server errors
@@ -472,19 +538,15 @@ export default function ProductPage() {
           ================================================================ */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-[#2f83aa] shadow-sm">
         <div className="mx-auto max-w-6xl px-4 py-3 relative">
-   
-          <div className="flex items-center justify-center">
-            <div className="w-32 h-18 flex items-center justify-center p-1">
-              <img src={logoImg} alt="ستوديو تيينز" className="w-full h-full object-contain" />
-            </div>
-          </div>
-
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex items-center leading-tight text-right">
-            <div>
-              <div className="font-bold text-lg bg-gradient-to-r from-[#2f83aa] to-[#1a5f7a] bg-clip-text text-transparent">
-                ستوديو تيينز
+          <div className="flex items-center justify-end">
+            <div className="flex items-center gap-3 flex-row-reverse">
+              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#2f83aa] bg-white flex-shrink-0">
+                <img src={logoImg} alt="Shawar Candy" className="w-full h-full object-cover block" />
               </div>
-              <div className="text-xs text-[#2f83aa]">منتجات وعروض مخصصة للمراهقين</div>
+              <div className="leading-tight text-left hidden sm:block">
+                <div className="font-bold text-lg text-neutral-900">Shawar Candy</div>
+                <div className="text-xs text-[#2f83aa]">Candy brand — Sweet treats</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1058,8 +1120,7 @@ export default function ProductPage() {
               <div className="flex items-center gap-3">
                 <div>
                   <h3 className="text-2xl font-bold">
-                    Shawar Cornfelkes
-                  </h3>
+Richie                  </h3>
                   <p className="text-xs text-cyan-300">كورنفلكس</p>
                 </div>
               </div>
