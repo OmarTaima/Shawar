@@ -127,6 +127,7 @@ export default function ProductPage() {
   };
 
   const videoRef = useRef(null);
+  const youtubeIframeRef = useRef(null);
   const userUnmutedRef = useRef(false);
   const [isMuted, setIsMuted] = useState(true);
   const [formData, setFormData] = useState({ name: "", phone: "", province: "", city: "", address: "", isWhatsapp: false, whatsappNumber: "", note: "", promoCode: "" });
@@ -264,6 +265,38 @@ export default function ProductPage() {
     } catch (err) {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMedia, isMuted]);
+
+  // Unmute YouTube video on first user interaction
+  useEffect(() => {
+    const unmuteYouTube = () => {
+      if (!userUnmutedRef.current && youtubeIframeRef.current) {
+        userUnmutedRef.current = true;
+        try {
+          // Send unmute command to YouTube iframe
+          youtubeIframeRef.current.contentWindow.postMessage(
+            '{"event":"command","func":"unMute","args":""}',
+            '*'
+          );
+          // Also set volume to maximum
+          setTimeout(() => {
+            youtubeIframeRef.current.contentWindow.postMessage(
+              '{"event":"command","func":"setVolume","args":[100]}',
+              '*'
+            );
+          }, 100);
+        } catch (e) {
+          console.error('Failed to unmute YouTube video:', e);
+        }
+      }
+    };
+
+    const events = ["click", "touchstart", "pointerdown"];
+    events.forEach((ev) => document.addEventListener(ev, unmuteYouTube, { once: true, passive: true }));
+
+    return () => {
+      events.forEach((ev) => document.removeEventListener(ev, unmuteYouTube));
+    };
+  }, []);
 
   // Global interaction handling: unmute on first interaction and keep replaying on interactions
   useEffect(() => {
@@ -657,8 +690,9 @@ export default function ProductPage() {
           <div className="mt-4 flex justify-end">
             <div className="w-full sm:w-80 md:w-96 lg:w-11/12 xl:w-[100%] max-w-screen-lg mx-auto relative overflow-hidden rounded-xl border-4 border-[#472500] shadow-2xl" style={{ paddingTop: '56.25%' }}>
               <iframe
+                ref={youtubeIframeRef}
                 className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/sIlyGbcUEkY?rel=0&autoplay=1&mute=1"
+                src="https://www.youtube.com/embed/sIlyGbcUEkY?rel=0&autoplay=1&mute=1&loop=1&playlist=sIlyGbcUEkY&enablejsapi=1"
                 title="Shawar product video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
