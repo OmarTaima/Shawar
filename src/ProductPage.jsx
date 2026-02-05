@@ -51,7 +51,7 @@ export default function ProductPage() {
   // Product details
   const productDetails = {
     name: "كورن فليكس شاور — ٥ أطعم",
-    price: 90,
+    price: 59,
     description: "كورن فليكس شاور — ٥ نكهات لذيذة ومقرمشة لبدء يومك بأحلى طعم.",
     features: [
       "نكهات طبيعية",
@@ -157,7 +157,7 @@ export default function ProductPage() {
   // CALCULATIONS
   // --------------------------------------------------------------------------
 
-  const perUnitPrice = productDetails.price || 90;
+  const perUnitPrice = productDetails.price || 59;
   // Single unit and 5-piece bundle
   const offers = [
     { count: 1, price: perUnitPrice },
@@ -541,7 +541,20 @@ export default function ProductPage() {
       setIsSubmitting(false);
     }
   };
-  
+
+  const scrollToForm = () => {
+    try {
+      const el = document.getElementById("orderForm");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        const firstInput = el.querySelector('input, select, textarea, button');
+        if (firstInput) firstInput.focus({ preventScroll: true });
+        return;
+      }
+    } catch (e) {}
+    try { handleOrderSubmit(); } catch (e) {}
+  };
+
   // --------------------------------------------------------------------------
   // RENDER
   // --------------------------------------------------------------------------
@@ -562,8 +575,8 @@ export default function ProductPage() {
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#472500] bg-white flex-shrink-0">
                 <img src={logoImg} alt="Shawar Corn Flakes" className="w-full h-full object-cover block" />
               </div>
-              <div className="leading-tight text-left hidden sm:block">
-                <div className="font-bold text-lg text-neutral-900">Shawar Corn Flakes</div>
+              <div className="leading-tight text-left text-sm sm:text-base">
+                <div className="font-bold text-base sm:text-lg text-neutral-900">Shawar Corn Flakes</div>
                 <div className="text-xs text-[#472500]">كورن فليكس شاور</div>
               </div>
             </div>
@@ -783,7 +796,7 @@ export default function ProductPage() {
        
           {/* Order Now Button removed from here; moved below the form */}
           {/* Delivery Form (moved to right column) */}
-          <form onSubmit={handleOrderSubmit} className="mt-6 space-y-3">
+          <form id="orderForm" onSubmit={handleOrderSubmit} className="mt-6 space-y-3">
             <h3 className="text-lg font-bold text-[#472500]">بيانات التوصيل</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -1121,7 +1134,7 @@ export default function ProductPage() {
         <div className="w-full bg-white border-t-2 border-[#472500] shadow-2xl">
           <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-center gap-4">
             <button
-              onClick={handleOrderSubmit}
+              onClick={scrollToForm}
               className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-[#472500] to-[#472500] text-white font-bold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 lg:w-44 lg:px-4 lg:py-2 lg:rounded-md lg:text-sm"
             >
               <ShoppingBag className="w-5 h-5 lg:w-4 lg:h-4" />
