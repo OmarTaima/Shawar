@@ -16,11 +16,11 @@ import {
   Award,
 } from "lucide-react";
 import logoImg from "./assets/logo.jpeg";
-import photo1 from "./assets/556882990_1219622656851052_8768942022743195469_n.jpg";
-import photo2 from "./assets/558440708_1219622400184411_6437028368072389860_n.jpg";
-import photo3 from "./assets/558989342_1219622760184375_8826584400446898894_n.jpg";
-import photo4 from "./assets/559127112_1219622513517733_3897607277409627272_n.jpg";
-import photo5 from "./assets/559167641_1219622440184407_212126080277563908_n.jpg";
+import photo1 from "./assets/حلقات الذرة المحمصة بالكاكاو وشوفان.png";
+import photo2 from "./assets/حلقات حبوب الذرة بالشوفان والعسل.png";
+import photo3 from "./assets/حلقات حبوب الذرة بالفاكهة.png";
+import photo4 from "./assets/رقائق الذرة المحمصة بالشوفان.png";
+import photo5 from "./assets/كرات الذرة بالكاكاو والشوفان.png";
 import ProductCard from "./ProductCard";
 import { addOrder } from "./api";
 import Swal from "sweetalert2";
@@ -41,7 +41,7 @@ export default function ProductPage() {
   // Resolved defaults with safe fallbacks for local/dev when env vars are not provided
   const RES_COMPANY_ID = DEFAULT_COMPANY_ID || "697253732fd976608d1de0e6";
   const RES_SUBCATS = (DEFAULT_SUBCATS && DEFAULT_SUBCATS[0]) ? DEFAULT_SUBCATS : ["697253bd2fd976608d1de42f"];
-  const RES_BRANCH_ID = DEFAULT_BRANCH_ID || "697254282fd976608d1de6de";
+  const RES_BRANCH_ID = DEFAULT_BRANCH_ID || "697253e12fd976608d1de5f3";
 
   // Product details
   const productDetails = {
@@ -166,11 +166,11 @@ export default function ProductPage() {
   const RES_ITEM5 = ITEM5 || "697255cb2fd976608d1debe2";
 
   const flavors = [
-    { id: 'flav1', name: 'نكهة ١', price: perUnitPrice, image: photo1, itemId: RES_ITEM1 },
-    { id: 'flav2', name: 'نكهة ٢', price: perUnitPrice, image: photo2, itemId: RES_ITEM2 },
-    { id: 'flav3', name: 'نكهة ٣', price: perUnitPrice, image: photo3, itemId: RES_ITEM3 },
-    { id: 'flav4', name: 'نكهة ٤', price: perUnitPrice, image: photo4, itemId: RES_ITEM4 },
-    { id: 'flav5', name: 'نكهة ٥', price: perUnitPrice, image: photo5, itemId: RES_ITEM5 },
+    { id: 'flav1', name: 'حلقات الذرة المحمصة بالكاكاو وشوفان', price: perUnitPrice, image: photo1, itemId: RES_ITEM1 },
+    { id: 'flav2', name: 'حلقات حبوب الذرة بالشوفان والعسل', price: perUnitPrice, image: photo2, itemId: RES_ITEM2 },
+    { id: 'flav3', name: 'حلقات حبوب الذرة بالفاكهة', price: perUnitPrice, image: photo3, itemId: RES_ITEM3 },
+    { id: 'flav4', name: 'رقائق الذرة المحمصة بالشوفان', price: perUnitPrice, image: photo4, itemId: RES_ITEM4 },
+    { id: 'flav5', name: 'كرات الذرة بالكاكاو والشوفان', price: perUnitPrice, image: photo5, itemId: RES_ITEM5 },
   ];
 
   // Compute subtotal depending on selected offer or selected items (from ProductCard selections)
@@ -327,7 +327,7 @@ export default function ProductPage() {
         icon: "error",
         title: "خطأ",
         text: "من فضلك أكمل بيانات التوصيل قبل المتابعة",
-        confirmButtonColor: "#2f83aa",
+        confirmButtonColor: "#472500",
       });
       return;
     }
@@ -337,7 +337,7 @@ export default function ProductPage() {
         icon: "warning",
         title: "اختر منتج",
         text: "من فضلك اختر على الأقل منتج واحد قبل المتابعة",
-        confirmButtonColor: "#2f83aa",
+        confirmButtonColor: "#472500",
       });
       return;
     }
@@ -347,7 +347,7 @@ export default function ProductPage() {
         icon: "warning",
         title: "حزمة غير كاملة",
         text: "تحتاج لاختيار 5 منتجات على الأقل للاستفادة من سعر الحزمة",
-        confirmButtonColor: "#2f83aa",
+        confirmButtonColor: "#472500",
       });
       return;
     }
@@ -366,7 +366,7 @@ export default function ProductPage() {
         icon: "error",
         title: "خطأ",
         text: "من فضلك أدخل الاسم ورقم الهاتف",
-        confirmButtonColor: "#2f83aa",
+        confirmButtonColor: "#472500",
       });
       return;
     }
@@ -375,8 +375,8 @@ export default function ProductPage() {
       Swal.fire({
         icon: "error",
         title: "خطأ",
-        text: "من فضلك أدخل المحافظة والعنوان",
-        confirmButtonColor: "#2f83aa",
+        text: "من فضلك ادخل المحافظة والعنوان",
+        confirmButtonColor: "#472500",
       });
       return;
     }
@@ -432,7 +432,7 @@ export default function ProductPage() {
             if (!hasAny) {
               const missing = ['VITE_CRM_ITEM1_ID','VITE_CRM_ITEM2_ID','VITE_CRM_ITEM3_ID','VITE_CRM_ITEM4_ID','VITE_CRM_ITEM5_ID'];
               console.debug('Missing bundle item ids. Resolved values:', bundleIds);
-              Swal.fire({ icon: "error", title: "خطأ", html: `معرفات المنتج غير متوفرة.<br/>توقع المتغيرات: ${missing.join(', ')}<br/><br/>القيم الحالية: ${bundleIds.map(v=>v||'<empty>').join(', ')}`, confirmButtonColor: "#2f83aa" });
+              Swal.fire({ icon: "error", title: "خطأ", html: `معرفات المنتج غير متوفرة.<br/>توقع المتغيرات: ${missing.join(', ')}<br/><br/>القيم الحالية: ${bundleIds.map(v=>v||'<empty>').join(', ')}`, confirmButtonColor: "#472500" });
               setIsSubmitting(false);
               return;
             }
@@ -457,7 +457,7 @@ export default function ProductPage() {
           } else {
             const fallbackItem = ITEM1 || "";
             if (!fallbackItem) {
-              Swal.fire({ icon: "error", title: "خطأ", text: "معرف المنتج مفقود. حاول مرة أخرى لاحقاً.", confirmButtonColor: "#2f83aa" });
+              Swal.fire({ icon: "error", title: "خطأ", text: "معرف المنتج مفقود. حاول مرة أخرى لاحقاً.", confirmButtonColor: "#472500" });
               setIsSubmitting(false);
               return;
             }
@@ -501,7 +501,7 @@ export default function ProductPage() {
         icon: "success",
         title: "تم استلام طلبك!",
         text: "سيتم التواصل معك قريباً",
-        confirmButtonColor: "#2f83aa",
+        confirmButtonColor: "#472500",
       });
 
       setShowModal(false);
@@ -519,8 +519,8 @@ export default function ProductPage() {
         icon: "error",
         title: serverMessage ? `خطأ: ${serverMessage}` : "حدث خطأ",
         text: serverMessage ? "تفاصيل مذكورة في الأسفل" : (error.message || "حاول مرة أخرى"),
-        footer: serverData ? `<pre style=\"text-align:left;direction:ltr;white-space:pre-wrap;\">${JSON.stringify(serverData)}</pre>` : undefined,
-        confirmButtonColor: "#2f83aa",
+        footer: serverData ? `<pre style="text-align:left;direction:ltr;white-space:pre-wrap;">${JSON.stringify(serverData)}</pre>` : undefined,
+        confirmButtonColor: "#472500",
       });
     } finally {
       setIsSubmitting(false);
@@ -534,21 +534,22 @@ export default function ProductPage() {
   return (
     <div
       dir="rtl"
-      className="min-h-svh bg-gradient-to-br from-blue-50 via-white to-cyan-50 text-neutral-900 lg:pb-15"
+      lang="ar"
+      className="arabic min-h-svh bg-gradient-to-br from-blue-50 via-white to-cyan-50 text-neutral-900 lg:pb-15"
     >
       {/* ================================================================
           HEADER - Sticky navigation bar with logo
           ================================================================ */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-[#2f83aa] shadow-sm">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-[#472500] shadow-sm">
         <div className="mx-auto max-w-6xl px-4 py-3 relative">
           <div className="flex items-center justify-end">
             <div className="flex items-center gap-3 flex-row-reverse">
-              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#2f83aa] bg-white flex-shrink-0">
+              <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#472500] bg-white flex-shrink-0">
                 <img src={logoImg} alt="Shawar Candy" className="w-full h-full object-cover block" />
               </div>
               <div className="leading-tight text-left hidden sm:block">
                 <div className="font-bold text-lg text-neutral-900">Shawar Candy</div>
-                <div className="text-xs text-[#2f83aa]">Candy brand — Sweet treats</div>
+                <div className="text-xs text-[#472500]">Candy brand — Sweet treats</div>
               </div>
             </div>
           </div>
@@ -566,7 +567,7 @@ export default function ProductPage() {
         <section className="space-y-4">
           {/* Main Media Display */}
           
-          <div className="relative overflow-hidden rounded-xl border-2 border-[#2f83aa] bg-black shadow-lg">
+          <div className="relative overflow-hidden rounded-xl border-2 border-[#472500] bg-black shadow-lg">
             {galleryMedia[currentMedia].type === "video" ? (
               <>
                 <video
@@ -605,8 +606,8 @@ export default function ProductPage() {
                 key={index}
                 className={`relative overflow-hidden rounded-lg border-2 transition-all cursor-pointer ${
                   currentMedia === index
-                    ? "border-[#2f83aa] ring-2 ring-[#2f83aa] ring-offset-2 scale-105"
-                    : "border-gray-300 hover:border-[#2f83aa]"
+                    ? "border-[#472500] ring-2 ring-[#472500] ring-offset-2 scale-105"
+                    : "border-gray-300 hover:border-[#472500]"
                 }`}
               >
                 <button
@@ -634,14 +635,14 @@ export default function ProductPage() {
         <section className="space-y-5">
          
           {/* Product Pieces */}
-          <div className="bg-blue-50 rounded-xl p-4 border-2 border-[#2f83aa]/30">
-            <h2 className="font-bold text-lg mb-3 text-[#2f83aa]">
+          <div className="bg-blue-50 rounded-xl p-4 border-2 border-[#472500]/30">
+            <h2 className="font-bold text-lg mb-3 text-[#472500]">
               عدد القطع بالتفصيل:
             </h2>
             <ul className="space-y-2 text-sm text-neutral-700">
               {productDetails.pieces.map((piece, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-[#2f83aa] mt-0.5 flex-shrink-0" />
+                  <Check className="w-4 h-4 text-[#472500] mt-0.5 flex-shrink-0" />
                   <span>{piece}</span>
                 </li>
               ))}
@@ -651,14 +652,14 @@ export default function ProductPage() {
         
 
           {/* Features */}
-          <div className="bg-cyan-50 rounded-xl p-4 border-2 border-cyan-200">
-            <h2 className="font-bold text-lg mb-3 text-[#2f83aa]">
+          <div className="bg-blue-50 rounded-xl p-4 border-2 border-[#472500]/30">
+            <h2 className="font-bold text-lg mb-3 text-[#472500]">
               مميزات المنتج:
             </h2>
             <ul className="space-y-2 text-sm text-neutral-700">
               {productDetails.features.map((feature, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                  <Check className="w-4 h-4 text-[#472500] mt-0.5 flex-shrink-0" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -666,22 +667,22 @@ export default function ProductPage() {
           </div>
  {/* Product Title */}
           <div className="space-y-3">
-            <h1 className="text-3xl font-extrabold text-[#2f83aa]">
+            <h1 className="text-3xl font-extrabold text-[#472500]">
               {productDetails.name}
             </h1>
             <p className="text-lg text-neutral-700">
               {productDetails.description}
             </p>
               <div className="mt-2 flex items-center gap-3 text-sm">
-              <div className="font-semibold">المنتجات المختارة: <span className="text-[#2f83aa]">{selectedItemsCount || 0}</span></div>
+              <div className="font-semibold">المنتجات المختارة: <span className="text-[#472500]">{selectedItemsCount || 0}</span></div>
               <div className="text-neutral-600">سعر لكل منتج: <span className="font-semibold">{perUnitPrice} جنيه</span></div>
-              <div className="text-neutral-700">المجموع الحالي: <span className="font-bold text-[#2f83aa]">{subtotal} جنيه</span></div>
+              <div className="text-neutral-700">المجموع الحالي: <span className="font-bold text-[#472500]">{subtotal} جنيه</span></div>
             </div>
           </div>
 
            {/* Flavor selection cards */}
           <div className="mt-4">
-            <h3 className="font-bold text-lg mb-3 text-[#2f83aa]">اختر النكهة/النكهات</h3>
+            <h3 className="font-bold text-lg mb-3 text-[#472500]">اختر النكهة/النكهات</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {flavors.map((f) => (
                 <ProductCard
@@ -702,7 +703,7 @@ export default function ProductPage() {
           </div>
 
           {/* Offer Cards - Desktop Only */}
-          <div className="mt-2 w-full">
+          {/* <div className="mt-2 w-full">
             <label className="text-sm font-semibold text-neutral-700">العروض:</label>
             <div className="mt-2 w-full flex flex-col gap-3 py-2">
               {offers.map((o, idx) => {
@@ -721,8 +722,8 @@ export default function ProductPage() {
                     className={
                       "flex items-center justify-between w-full px-5 py-4 rounded-2xl text-sm transition-all duration-300 transform hover:scale-105 " +
                       (active
-                        ? "bg-gradient-to-br from-[#2f83aa] to-[#1a5f7a] text-white shadow-lg ring-2 ring-[#7fc0d6] ring-offset-2"
-                        : "bg-white text-neutral-700 border border-cyan-100 hover:border-[#2f83aa] hover:bg-cyan-50 shadow-md")
+                        ? "bg-gradient-to-br from-[#472500] to-[#472500] text-white shadow-lg ring-2 ring-[#472500] ring-offset-2"
+                        : "bg-white text-neutral-700 border border-cyan-100 hover:border-[#472500] hover:bg-cyan-50 shadow-md")
                     }
                   >
                     <div className="text-right">
@@ -735,28 +736,28 @@ export default function ProductPage() {
                 );
               })}
             </div>
-          </div>
+          </div> */}
            {/* Contact Info */}
             {/* Benefits Row: four icons with short Arabic labels */}
             <div className="mt-4">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center items-center">
                 <div className="flex flex-col items-center gap-2 p-3 bg-white/40 rounded-lg">
-                  <Truck className="w-8 h-8 text-[#2f83aa]" />
+                  <Truck className="w-8 h-8 text-[#472500]" />
                   <div className="text-sm font-semibold text-neutral-800">التوصيل لحد باب البيت</div>
                 </div>
 
                 <div className="flex flex-col items-center gap-2 p-3 bg-white/40 rounded-lg">
-                  <DollarSign className="w-8 h-8 text-[#2f83aa]" />
+                  <DollarSign className="w-8 h-8 text-[#472500]" />
                   <div className="text-sm font-semibold text-neutral-800">الدفع عند الاستلام</div>
                 </div>
 
                 <div className="flex flex-col items-center gap-2 p-3 bg-white/40 rounded-lg">
-                  <Headphones className="w-8 h-8 text-[#2f83aa]" />
+                  <Headphones className="w-8 h-8 text-[#472500]" />
                   <div className="text-sm font-semibold text-neutral-800">في خدمتك دائماً</div>
                 </div>
 
                 <div className="flex flex-col items-center gap-2 p-3 bg-white/40 rounded-lg">
-                  <Award className="w-8 h-8 text-[#2f83aa]" />
+                  <Award className="w-8 h-8 text-[#472500]" />
                   <div className="text-sm font-semibold text-neutral-800">ضمان وجودة عالية</div>
                 </div>
               </div>
@@ -765,7 +766,7 @@ export default function ProductPage() {
           {/* Order Now Button removed from here; moved below the form */}
           {/* Delivery Form (moved to right column) */}
           <form onSubmit={handleOrderSubmit} className="mt-6 space-y-3">
-            <h3 className="text-lg font-bold text-[#2f83aa]">بيانات التوصيل</h3>
+            <h3 className="text-lg font-bold text-[#472500]">بيانات التوصيل</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">الاسم</label>
@@ -777,7 +778,7 @@ export default function ProductPage() {
                   onChange={handleInputChange}
                   type="text"
                   placeholder="اكتب اسمك الكامل"
-                  className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                  className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
                 />
               </div>
 
@@ -792,7 +793,7 @@ export default function ProductPage() {
                   type="tel"
                   placeholder="01XXXXXXXXX"
                   pattern="01[0125][0-9]{8}"
-                  className="w-full dir-ltr rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                  className="w-full dir-ltr rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
                 />
               </div>
             </div>
@@ -820,7 +821,7 @@ export default function ProductPage() {
                   type="tel"
                   placeholder="01XXXXXXXXX"
                   pattern="01[0125][0-9]{8}"
-                  className="w-full dir-ltr rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                  className="w-full dir-ltr rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
                 />
               </div>
             )}
@@ -835,7 +836,7 @@ export default function ProductPage() {
                 name="province"
                 value={formData.province}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
               >
                 <option value="">-- اختر المحافظة --</option>
                 {(citiesData || []).map((c) => (
@@ -855,7 +856,7 @@ export default function ProductPage() {
                 onChange={handleInputChange}
                 type="text"
                 placeholder="المدينة"
-                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
               />
             </div>
 
@@ -869,7 +870,7 @@ export default function ProductPage() {
                 onChange={handleInputChange}
                 type="text"
                 placeholder="المدينة، الشارع، أقرب علامة مميزة"
-                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
               />
             </div>
 
@@ -881,7 +882,7 @@ export default function ProductPage() {
                 value={formData.note}
                 onChange={handleInputChange}
                 placeholder="أي تفاصيل إضافية للطلب"
-                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa] mt-1"
+                className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500] mt-1"
                 rows={3}
               />
             </div>
@@ -896,7 +897,7 @@ export default function ProductPage() {
                   onChange={handleInputChange}
                   type="text"
                   placeholder="اكتب كود العرض إن وجد"
-                  className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f83aa]"
+                  className="w-full rounded-lg border border-neutral-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#472500]"
                 />
                 <button type="button" onClick={() => { setFormData(s => ({ ...s, promoCode: '' })); setCopiedPromo(''); }} className="px-3 py-2 bg-white border rounded-lg">مسح</button>
               </div>
@@ -914,7 +915,7 @@ export default function ProductPage() {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-[#2f83aa] to-[#1a5f7a] text-white font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-[#472500] to-[#472500] text-white font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <ShoppingBag className="w-6 h-6" />
                 اطلب الآن
@@ -935,7 +936,7 @@ export default function ProductPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-[#2f83aa] to-[#1a5f7a] text-white p-6 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-[#472500] to-[#472500] text-white p-6 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
                   <ShoppingBag className="w-6 h-6" />
@@ -966,7 +967,7 @@ export default function ProductPage() {
             {/* Modal Content */}
             <div className="p-6 space-y-4">
               <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                <h3 className="font-bold text-lg mb-3 text-[#2f83aa]">
+                <h3 className="font-bold text-lg mb-3 text-[#472500]">
                   تفاصيل الطلب
                 </h3>
                 <div className="space-y-2 text-sm">
@@ -1032,7 +1033,7 @@ export default function ProductPage() {
                   )}
                   <div className="flex justify-between border-t border-neutral-300 pt-2 mt-2">
                     <span className="font-bold text-lg">الإجمالي:</span>
-                    <span className="font-bold text-xl text-[#2f83aa]">
+                    <span className="font-bold text-xl text-[#472500]">
                       {grandTotal} جنيه
                     </span>
                   </div>
@@ -1042,7 +1043,7 @@ export default function ProductPage() {
 
             {/* Modal Footer - Confirmation only */}
             <div className="p-6 bg-neutral-50 rounded-b-2xl space-y-3">
-              <h3 className="font-bold text-lg text-[#2f83aa]">بيانات التوصيل</h3>
+              <h3 className="font-bold text-lg text-[#472500]">بيانات التوصيل</h3>
               <div className="text-sm space-y-1">
                 <div className="flex justify-between">
                   <span className="text-neutral-700">الاسم:</span>
@@ -1099,11 +1100,11 @@ export default function ProductPage() {
           STICKY BOTTOM BAR - Mobile Only with Quantity
           ================================================================ */}
       <div className="fixed inset-x-0 bottom-0 z-30">
-        <div className="w-full bg-white border-t-2 border-[#2f83aa] shadow-2xl">
+        <div className="w-full bg-white border-t-2 border-[#472500] shadow-2xl">
           <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-center gap-4">
             <button
               onClick={handleOrderSubmit}
-              className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-[#2f83aa] to-[#1a5f7a] text-white font-bold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 lg:w-44 lg:px-4 lg:py-2 lg:rounded-md lg:text-sm"
+              className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-[#472500] to-[#472500] text-white font-bold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 lg:w-44 lg:px-4 lg:py-2 lg:rounded-md lg:text-sm"
             >
               <ShoppingBag className="w-5 h-5 lg:w-4 lg:h-4" />
               اطلب الآن
@@ -1115,7 +1116,7 @@ export default function ProductPage() {
       {/* ================================================================
           FOOTER
           ================================================================ */}
-      <footer className="w-full bg-gradient-to-br from-[#2f83aa] via-[#1a5f7a] to-neutral-800 mt-20 text-white pb-20 lg:pb-0">
+      <footer className="w-full bg-gradient-to-br from-[#472500] via-[#472500] to-neutral-800 mt-20 text-white pb-20 lg:pb-0">
         <div className="mx-auto max-w-6xl px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Brand Section */}
@@ -1124,7 +1125,7 @@ export default function ProductPage() {
                 <div>
                   <h3 className="text-2xl font-bold">
 Richie                  </h3>
-                  <p className="text-xs text-cyan-300">كورنفلكس</p>
+                  <p className="text-xs text-cyan-50">كورنفلكس</p>
                 </div>
               </div>
               <p className="text-sm text-neutral-300 leading-relaxed">
@@ -1139,7 +1140,7 @@ Richie                  </h3>
         <div className="border-t border-white/10 bg-black/30">
           <div className="mx-auto max-w-6xl px-6 py-4 text-center">
             <span className="text-sm text-neutral-400">
-              Created by <a href="https://www.sabergroup-eg.com" target="_blank" rel="noopener noreferrer" className="text-cyan-200 hover:underline">SABERGROUPSTUDIOS</a> © </span>
+              Created by <a href="https://www.sabergroup-eg.com" target="_blank" rel="noopener noreferrer" className="text-blue-50 hover:underline">SABERGROUPSTUDIOS</a> © </span>
           </div>
         </div>
       </footer>

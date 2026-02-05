@@ -26,7 +26,7 @@ export default function ProductCard({
       tabIndex={disabled ? -1 : 0}
       onKeyDown={handleKey}
       onClick={() => { if (!disabled) onToggle && onToggle(id); }}
-      className={`relative rounded-xl border p-3 bg-white shadow-md transform transition-all duration-150 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#2f83aa] ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+      className={`arabic relative rounded-xl border p-3 bg-white shadow-md transform transition-all duration-150 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#472500] ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
       aria-disabled={disabled}
       role="group"
       aria-label={`${title} - ${price} جنيه`}
@@ -57,7 +57,7 @@ export default function ProductCard({
           aria-pressed={selected}
           aria-label={selected ? `إلغاء اختيار ${title}` : `اختر ${title}`}
           disabled={disabled}
-          className={`px-3 py-1 rounded-full text-sm font-semibold transition ${selected ? 'bg-[#2f83aa] text-white' : 'bg-white border text-neutral-800'}`}
+          className={`px-3 py-1 rounded-full text-sm font-semibold transition ${selected ? 'bg-[#472500] text-white' : 'bg-white border text-neutral-800'}`}
         >
           {selected ? '✓' : 'اختر'}
         </button>
@@ -90,7 +90,7 @@ export default function ProductCard({
       )}
       {/* Quantity badge when selected */}
       {selected && (
-        <div className="absolute top-2 left-2 bg-[#2f83aa] text-white px-2 py-0.5 rounded-full text-xs font-bold">{quantity}</div>
+        <div className="absolute top-2 left-2 bg-[#472500] text-white px-2 py-0.5 rounded-full text-xs font-bold">{quantity}</div>
       )}
     </div>
   );

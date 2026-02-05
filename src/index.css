@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* Cairo font for Arabic content */
+:root { --font-cairo: 'Cairo', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+:lang(ar), [lang="ar"], .arabic {
+	font-family: var(--font-cairo);
+}

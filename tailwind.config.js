@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  // Tailwind CSS v4 لا يحتاج خيار المحتوى (content) — يتم الاكتشاف تلقائيًا
-  theme: {
-    extend: {},
+content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  base: './',
+    theme: {
+    extend: {
+      fontFamily: {
+        cairo: ['Cairo', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'],
+      },
+    },
   },
   plugins: [],
 };
