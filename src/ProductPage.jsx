@@ -21,6 +21,11 @@ import photo2 from "./assets/حلقات حبوب الذرة بالشوفان و�
 import photo3 from "./assets/حلقات حبوب الذرة بالفاكهة.png";
 import photo4 from "./assets/رقائق الذرة المحمصة بالشوفان.png";
 import photo5 from "./assets/كرات الذرة بالكاكاو والشوفان.png";
+import photo1t from "./assets/01.jpg.jpeg";
+import photo2t from "./assets/02.jpg.jpeg";
+import photo3t from "./assets/03.jpg.jpeg";
+import photo4t from "./assets/04.jpg.jpeg";
+import photo5t from "./assets/05.jpg.jpeg";
 import ProductCard from "./ProductCard";
 import { addOrder } from "./api";
 import Swal from "sweetalert2";
@@ -48,11 +53,13 @@ export default function ProductPage() {
     name: "كورن فليكس شاور — ٥ أطعم",
     price: 90,
     description: "كورن فليكس شاور — ٥ نكهات لذيذة ومقرمشة لبدء يومك بأحلى طعم.",
-    pieces: ["٥ نكهات مختلفة"],
     features: [
+      "نكهات طبيعية",
       "مقرمش ولذيذ",
       "عبوة منفصلة لكل طعم للحفاظ على النكهة",
-      "متاح داخل المعرض أو للتوصيل",
+      "متاح التوصيل لكل محافظات الجمهوريه",
+      "السعرات الحرارية لكل وجبة 30 جم ( 110 كالوري )",
+      "الوزن الاجمالي 200 جرام",
     ],
     specs: {
       brand: "شاور كورن فليكس",
@@ -65,10 +72,18 @@ export default function ProductPage() {
   // Gallery media (video first, then images)
   const galleryMedia = [
     { type: "image", src: photo1 },
+    {type: "image", src: photo1t },
     { type: "image", src: photo2 },
+        {type: "image", src: photo2t },
     { type: "image", src: photo3 },
+        {type: "image", src: photo3t },
+
     { type: "image", src: photo4 },
+        {type: "image", src: photo4t },
+
     { type: "image", src: photo5 },
+        {type: "image", src: photo5t },
+
   ];
 
   // --------------------------------------------------------------------------
@@ -545,11 +560,11 @@ export default function ProductPage() {
           <div className="flex items-center justify-end">
             <div className="flex items-center gap-3 flex-row-reverse">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#472500] bg-white flex-shrink-0">
-                <img src={logoImg} alt="Shawar Candy" className="w-full h-full object-cover block" />
+                <img src={logoImg} alt="Shawar Corn Flakes" className="w-full h-full object-cover block" />
               </div>
               <div className="leading-tight text-left hidden sm:block">
-                <div className="font-bold text-lg text-neutral-900">Shawar Candy</div>
-                <div className="text-xs text-[#472500]">Candy brand — Sweet treats</div>
+                <div className="font-bold text-lg text-neutral-900">Shawar Corn Flakes</div>
+                <div className="text-xs text-[#472500]">كورن فليكس شاور</div>
               </div>
             </div>
           </div>
@@ -625,7 +640,19 @@ export default function ProductPage() {
             ))}
           </div>
 
-          
+          {/* Video (gallery column) - aligned right under thumbnails */}
+          <div className="mt-4 flex justify-end">
+            <div className="w-full sm:w-80 md:w-96 lg:w-11/12 xl:w-[100%] max-w-screen-lg mx-auto relative overflow-hidden rounded-xl border-4 border-[#472500] shadow-2xl" style={{ paddingTop: '56.25%' }}>
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/sIlyGbcUEkY?rel=0&autoplay=1&mute=1"
+                title="Shawar product video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                allowFullScreen
+              />
+            </div>
+          </div>
 
         </section>
 
@@ -634,27 +661,14 @@ export default function ProductPage() {
             ---------------------------------------- */}
         <section className="space-y-5">
          
-          {/* Product Pieces */}
-          <div className="bg-blue-50 rounded-xl p-4 border-2 border-[#472500]/30">
-            <h2 className="font-bold text-lg mb-3 text-[#472500]">
-              عدد القطع بالتفصيل:
-            </h2>
-            <ul className="space-y-2 text-sm text-neutral-700">
-              {productDetails.pieces.map((piece, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-[#472500] mt-0.5 flex-shrink-0" />
-                  <span>{piece}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        
 
         
 
           {/* Features */}
           <div className="bg-blue-50 rounded-xl p-4 border-2 border-[#472500]/30">
             <h2 className="font-bold text-lg mb-3 text-[#472500]">
-              مميزات المنتج:
+              مواصفات المنتج:
             </h2>
             <ul className="space-y-2 text-sm text-neutral-700">
               {productDetails.features.map((feature, index) => (
@@ -673,6 +687,10 @@ export default function ProductPage() {
             <p className="text-lg text-neutral-700">
               {productDetails.description}
             </p>
+            <div className="mt-2 text-sm text-neutral-700 space-y-1">
+              <div>{productDetails.specs.calories}</div>
+              <div>{productDetails.specs.totalWeight}</div>
+            </div>
               <div className="mt-2 flex items-center gap-3 text-sm">
               <div className="font-semibold">المنتجات المختارة: <span className="text-[#472500]">{selectedItemsCount || 0}</span></div>
               <div className="text-neutral-600">سعر لكل منتج: <span className="font-semibold">{perUnitPrice} جنيه</span></div>
@@ -1125,11 +1143,11 @@ export default function ProductPage() {
                 <div>
                   <h3 className="text-2xl font-bold">
 Richie                  </h3>
-                  <p className="text-xs text-cyan-50">كورنفلكس</p>
+                  <p className="text-xs text-cyan-50">شاور كورن فليكس من ريتشي </p>
                 </div>
               </div>
               <p className="text-sm text-neutral-300 leading-relaxed">
-                طعم صباحات مليانة طاقة — كورنفلكس من شاور، حبوب مقرمشة بنكهات طبيعية ومغذية.
+                طعم صباح مليان طاقة — كورنفلكس من شاور، حبوب مقرمشة بنكهات طبيعية ومغذية.
               </p>
             </div>
 
