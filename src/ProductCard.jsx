@@ -75,6 +75,7 @@ export default function ProductCard({
             alt={title}
             className={`w-full h-full object-cover transition-transform duration-200 ${expanded ? 'scale-105' : ''}`}
             loading="lazy"
+            decoding="async"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -174,7 +175,7 @@ export default function ProductCard({
           onClick={() => setExpanded(false)}
         >
           <div className="w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img src={image} alt={title} className="w-full h-auto max-h-[90vh] object-contain rounded-lg mx-auto" />
+            <img src={image} alt={title} className="w-full h-auto max-h-[90vh] object-contain rounded-lg mx-auto" loading="eager" decoding="async" />
           </div>
         </div>
       )}

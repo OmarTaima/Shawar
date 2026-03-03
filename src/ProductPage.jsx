@@ -16,11 +16,11 @@ import {
   Award,
 } from "lucide-react";
 import logoImg from "./assets/logo.jpeg";
-import photo1 from "./assets/حلقات الذرة المحمصة بالكاكاو وشوفان.png";
-import photo2 from "./assets/حلقات حبوب الذرة بالشوفان والعسل.png";
-import photo3 from "./assets/حلقات حبوب الذرة بالفاكهة.png";
-import photo4 from "./assets/رقائق الذرة المحمصة بالشوفان.png";
-import photo5 from "./assets/كرات الذرة بالكاكاو والشوفان.png";
+import photo1 from "./assets/1.png";
+import photo2 from "./assets/2.png";
+import photo3 from "./assets/3.png";
+import photo4 from "./assets/4.png";
+import photo5 from "./assets/5.png";
 import photo1t from "./assets/01.jpg.jpeg";
 import photo2t from "./assets/02.jpg.jpeg";
 import photo3t from "./assets/03.jpg.jpeg";
@@ -606,7 +606,7 @@ export default function ProductPage() {
           <div className="flex items-center justify-end">
             <div className="flex items-center gap-3 flex-row-reverse">
               <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#472500] bg-white flex-shrink-0">
-                <img src={logoImg} alt="Shawar Corn Flakes" className="w-full h-full object-cover block" />
+                <img src={logoImg} alt="Shawar Corn Flakes" className="w-full h-full object-cover block" loading="eager" decoding="async" fetchpriority="high" />
               </div>
               <div className="leading-tight text-left text-sm sm:text-base">
                 <div className="font-bold text-base sm:text-lg text-neutral-900">Shawar Corn Flakes</div>
@@ -656,6 +656,9 @@ export default function ProductPage() {
                 src={galleryMedia[currentMedia].src}
                 alt="علب التلاجة"
                 className="w-full h-auto object-cover"
+                loading={currentMedia === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchpriority={currentMedia === 0 ? "high" : "auto"}
               />
             )}
           </div>
@@ -680,6 +683,8 @@ export default function ProductPage() {
                     src={media.type === "video" ? (media.thumbnail || media.src) : media.src}
                     alt={`صورة ${index + 1}`}
                     className="w-full h-16 object-cover"
+                    loading={index < 3 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                 </button>
               </div>
@@ -1054,7 +1059,7 @@ export default function ProductPage() {
                                 return (
                                   <div key={id} className="flex items-center gap-2">
                                     {flavor.image && (
-                                      <img src={flavor.image} alt={flavor.name} className="w-12 h-12 object-cover rounded-md border" />
+                                      <img src={flavor.image} alt={flavor.name} className="w-12 h-12 object-cover rounded-md border" loading="lazy" decoding="async" />
                                     )}
                                     <div>
                                       <div className="font-semibold">{flavor.name}</div>
@@ -1166,10 +1171,27 @@ export default function ProductPage() {
           ================================================================ */}
       <div className="fixed inset-x-0 bottom-0 z-30">
         <div className="w-full bg-white border-t-2 border-[#472500] shadow-2xl">
-          <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-center gap-4">
+          <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
+            {/* Product Count and Total Amount */}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2 text-[#472500]">
+                <ShoppingBag className="w-4 h-4" />
+                <span className="font-bold text-sm">عدد المنتجات: {selectedItemsCount}</span>
+              </div>
+              <div className="flex items-center gap-2 text-[#472500]">
+                <DollarSign className="w-4 h-4" />
+                <span className="font-bold text-sm">المبلغ: {subtotal - promoDiscount} جنيه</span>
+              </div>
+              <div className="flex items-center gap-2 text-[#472500]">
+                <Truck className="w-4 h-4" />
+                <span className="font-bold text-sm">التوصيل: {deliveryLabel}</span>
+              </div>
+            </div>
+            
+            {/* Order Button */}
             <button
               onClick={scrollToForm}
-              className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-[#472500] to-[#472500] text-white font-bold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 lg:w-44 lg:px-4 lg:py-2 lg:rounded-md lg:text-sm"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-[#472500] to-[#472500] text-white font-bold text-base shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 lg:px-4 lg:py-2 lg:rounded-md lg:text-sm whitespace-nowrap"
             >
               <ShoppingBag className="w-5 h-5 lg:w-4 lg:h-4" />
               اطلب الآن
